@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors()); 
 app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 const uri = process.env.ATLAS_URI;
 
@@ -25,6 +26,18 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("mongoDb database connection established succesfully");
 });
+
+const location = path.join(__dirname,"./routes/loginRoutes");
+app.use(express.static(location));
+
+app.get("/", (req,res) => {
+  res.render("loginpage");
+})
+
+app.get("/register", (req,res) => {
+  res.render("register");
+})
+
 
 const invoicesRouter = require("./routes/invoices");
 const { resolve } = require("path");

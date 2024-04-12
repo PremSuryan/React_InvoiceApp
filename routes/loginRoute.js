@@ -1,10 +1,15 @@
 const router = require("express").Router();
-let loginModel = require("../models/loginModel.js");
+// let loginModel = require("../models/loginModel.js");
 const mongoose = require('mongoose');
+const userController = require("./controllers/user");
+
 
 //GET ALL THE INVOICES
+
 router.route("/").get((req, res) => {
-  loginModel.find()
-    .then((login) => res.json(login))
-    .catch((err) => res.status(400).json("Error: " + err));
+  res.render("loginpage");
 });
+
+router.post("/loginpage",userController.loginpage);
+
+module.exports = router;

@@ -2,14 +2,16 @@ const router = require("express").Router();
 let Invoice = require("../models/invoice.model.js");
 const mongoose = require('mongoose');
 
+
+
 //GET ALL THE INVOICES
-router.route("/").get((req, res) => {
+router.route("/invoice").get((req, res) => {
   Invoice.find()
     .then((invoices) => res.json(invoices))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 //ADD AN INVOICE
-router.route("/add").post((req, res) => {
+router.route("/invoice/add").post((req, res) => {
   const {
     id,
     createdAt,

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LoginPage from "./loginpage";
+import LoginContext from '../context/login_context';
+
 
 const Register = () => {
   // State variables for form inputs
@@ -9,7 +11,8 @@ const Register = () => {
   const [userEmailID, setEmailID] = useState("");
   const [userCity, setUserCity] = useState("");
   const [userCountry, setCountry] = useState("");
-  const [showRegister, setShowRegister] = useState(true);
+  // const [showRegister, setShowRegister] = useState(true);
+  const {userregister ,setUserRegister} = useContext(LoginContext)
 
   // Function to handle form submission
   const handleSubmit = (event) => {
@@ -25,12 +28,13 @@ const Register = () => {
 
   // Function to toggle back to LoginPage
   const toggleRegister = () => {
-    setShowRegister(false); // Hide login form when toggling to Register
+    setUserRegister(true); // Hide login form when toggling to Register
   };
 
-
   return (
-    <form className="was-validated container container-sm-border" onSubmit={handleSubmit}>
+    <div align="center">
+    {userregister && (
+    <form className="was-validated container container-sm-border" action= "../routes/registerRoute" method="post" onSubmit={handleSubmit}>
          <div className="form-group" align="center">
                 <br />
                 <h1 style={{ textAlign: "center", color: "Blue" }}> Register Details </h1>
@@ -76,9 +80,11 @@ const Register = () => {
                 <button type="submit" className="btn btn-primary" onClick={toggleRegister}>Submit</button>
             </div>
             <br />
-            {!showRegister && <LoginPage />}
+            {!userregister && <LoginPage />}
 
     </form>
+  )}
+  </div>
   );
 }
 

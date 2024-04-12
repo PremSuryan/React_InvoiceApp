@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Register from './registor'; // Corrected import statement
+import LoginContext from '../context/login_context';
+
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showRegister, setShowRegister] = useState(false); // State to control whether to show Register component
+  // const [showRegister, setShowRegister] = useState(false); // State to control whether to show Register component
+  // const {userregister} = useContext(LoginProvider)
+  const {userregister,setUserRegister} = useContext(LoginContext)
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,15 +23,17 @@ const LoginPage = () => {
   };
 
   const toggleRegister = () => {
-    setShowRegister(!showRegister); // Toggling the state to show/hide Register component
+    setUserRegister(!userregister); // Toggling the state to show/hide Register component
   };
 
 
   return (
     <div align="center">
+      
       <h2>Login</h2>
       {error && <p>{error}</p>}
-      <form onSubmit={handleLogin}>
+      {!userregister && (
+      <form action= "../routes/loginRoute" method="post" onSubmit={handleLogin} >
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -48,10 +54,13 @@ const LoginPage = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      )}
       <div>
         <button onClick={toggleRegister}>Register</button>
-        {(showRegister && <Register/>)|| (<LoginPage/>)}  
+        
+        {/* {(showRegister && <Register/>)|| (<LoginPage/>)}   */}
       </div>
+      {(!userregister && <Register/>)}
     </div>
   );
 };

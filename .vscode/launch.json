@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "npm start",
+            "name": "Run npm start",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}\\invoice-app-main"
+        },
+
+        // {
+        //     "type": "node-terminal",
+        //     "name": "Run Script: react start",
+        //     "request": "launch",
+        //     "command": "npm run start",
+        //     "cwd": "${workspaceFolder}/invoice-app-main/client/",
+        //     "sourceMaps": true
+        // },
+
+        {
+            "type": "firefox",
+            "name": "react localhost start",
+            "request": "launch",
+            // "reAttach" : true,
+            // "command": "npm run start",
+            "url" : "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/invoice-app-main/client/"
+            // "pathMappings": [{
+            //     "url": "http:\\localhost",
+            //     "path": "${workspaceFolder}\\invoice-app-main\\client\\"
+            // }]
+            //"sourceMaps": true
+        },
+        
+    ]
+}

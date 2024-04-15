@@ -12,7 +12,7 @@ import Register from "../components/loginpage";
 
 export const LoginContext = React.createContext();
 
-export const LoginProvider = () => {
+export const LoginProvider = ({ LoginPage, Register}) => {
 
 const [ userregister ] = useState(false);
     return ( 

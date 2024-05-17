@@ -27,22 +27,38 @@ connection.once("open", () => {
   console.log("mongoDb database connection established succesfully");
 });
 
-const location = path.join(__dirname,"./routes/loginRoutes");
-app.use(express.static(location));
+// const location = path.join(__dirname,"./routes/loginRoutes");
+// app.use(express.static(location));
 
-app.get("/", (req,res) => {
-  res.render("loginpage");
-})
 
-app.get("/register", (req,res) => {
-  res.render("register");
-})
+
+// app.get("/", (req,res) => {
+//   res.render("loginpage");
+// })
+
+// app.get("/register", (req,res) => {
+//   res.render("register");
+// })
+
+// app.post("./register", (req, res) => {
+//   // Handle registration logic here
+//   res.status(200).send('User registered successfully');
+// });
+
+// const regsRouter = require("./routes/registerRoutes");
+// app.use("/registerRoute", regsRouter);
 
 
 const invoicesRouter = require("./routes/invoices");
 const { resolve } = require("path");
 
 app.use("/invoices", invoicesRouter);
+
+
+const regsRouter = require("./routes/registerRoute");
+// const { resolve } = require("path");
+
+app.use("/register", regsRouter);
 
 
 if (process.env.NODE_ENV === "production") {
@@ -56,3 +72,16 @@ if (process.env.NODE_ENV === "production") {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+//----------
+// const location = path.join(__dirname,"./routes/loginRoutes");
+// app.use(express.static(location));
+
+// app.get("/", (req,res) => {
+//   res.render("loginpage");
+// })
+
+// app.get("/register", (req,res) => {
+//   res.render("register");
+// })

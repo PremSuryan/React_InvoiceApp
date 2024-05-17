@@ -1,93 +1,179 @@
-import React, { useState, useContext } from "react";
-import LoginPage from "./loginpage";
-import LoginContext from '../context/login_context';
-import { showreg, setshowreg } from "./loginpage";
+import React, { useState } from 'react';
+import axios from 'axios';
+// import useData from '../context/login_context';  // Adjust the import path accordingly
+import LoginPage from './loginpage';  // Adjust the import path accordingly
 
 
 const Register = () => {
-  // State variables for form inputs
-  const [username, setUsername] = useState("");
-  const [userPhoneno, setPhoneno] = useState("");
-  const [userAddress, setAddress] = useState("");
-  const [userEmailID, setEmailID] = useState("");
-  const [userCity, setUserCity] = useState("");
-  const [userCountry, setCountry] = useState("");
-  // const [showRegister, setShowRegister] = useState(true);
-  // const {userregister ,setUserRegister} = useContext(LoginContext)
+  const initialUserData = {
+    username: '',
+    phoneno: '',
+    address: '',
+    email: '',
+    city: '',
+    country: '',
+    password:''
+  };
+  const [showreg, setshowreg] = useState(true);
+  const [userData, setUserData] = useState(initialUserData);
+  // const [error, setError] = useState(null);  // State to store error message
+
+  // URL for registration
+  const regurl = "http://localhost:5000/register/userdetails";
+
+  // Function to handle input changes
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
   // Function to handle form submission
-  const handleSubmit = (event) => {
+  const handleRegisterForm = async (event, userData) => {
     event.preventDefault();
-    console.log("Form submitted with the following data:");
-    console.log("Username:", username);
-    console.log("Phone number:", userPhoneno);
-    console.log("Address:", userAddress);
-    console.log("Email ID:", userEmailID);
-    console.log("City:", userCity);
-    console.log("Country:", userCountry);
+    // setError(null); 
+    try {
+      const response = await axios.post(regurl, userData);
+      console.log("Registration successful:", response.data);
+      // Handle success (e.g., show a success message, redirect, etc.)
+    } catch (error) {
+      console.error("Registration failed:", error);
+      // Handle error (e.g., show an error message)
+    }
   };
 
   // Function to toggle back to LoginPage
   const toggleRegister = () => {
-    // setUserRegister(true); 
-    setshowreg(false);// Hide login form when toggling to Register
+    setshowreg(false);
   };
 
   return (
     <div align="center">
-    {showreg && (
-    <form className="was-validated container container-sm-border" action= "../routes/registerRoute" method="post" onSubmit={handleSubmit}>
-         <div className="form-group" align="center">
-                <br />
-                <h1 style={{ textAlign: "center", color: "Blue" }}> Register Details </h1>
-                <br />
-                <label htmlFor="username"> Username: </label>
-                <input type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your name" name="username" required />
-            </div>
+      {showreg && (
+        <form className="was-validated container container-sm-border" onSubmit= {(event) =>handleRegisterForm(event,userData)}>
+          <div className="form-group" align="center">
             <br />
-            <div className="form-group" align="center">
-                <label htmlFor="phoneno"> Phone number: </label>
-                <input type="tel" className="form-control" id="phoneno" value={userPhoneno} onChange={(e) => setPhoneno(e.target.value)} placeholder="Enter your phone number" name="phoneno" required />
-            </div>
+            <h1 style={{ textAlign: "center", color: "Blue" }}> Register Details </h1>
             <br />
-            <div className="form-group" align="center">
-                <label htmlFor="address"> Address: </label>
-                <input type="text" className="form-control" id="pwd" value={userAddress} onChange={(e) => setAddress(e.target.value)} placeholder="Enter your address" name="pwd" required />
-            </div>
-            <br />
-            <div className="form-group" align="center">
-                <label htmlFor="email"> EmailID: </label>
-                <input type="text" className="form-control" id="pwd" value={userEmailID} onChange={(e) => setEmailID(e.target.value)} placeholder="Enter your emailID" name="pwd" required />
-            </div>
+            <label htmlFor="username"> Username: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="username" 
+              name="username" 
+              onChange={handleChange} 
+              value={userData.username} 
+              placeholder="Enter your name" 
+              required 
+            />
+          </div>
+          <br />
+          <div className="form-group" align="center">
+            <label htmlFor="phoneno"> Phone number: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="phoneno" 
+              name="phoneno" 
+              onChange={handleChange} 
+              value={userData.phoneno} 
+              placeholder="Enter your phone number"  
+              required 
+            />
+          </div>
+          <br />
+          <div className="form-group" align="center">
+            <label htmlFor="address"> Address: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="address" 
+              name="address" 
+              onChange={handleChange} 
+              value={userData.address}  
+              placeholder="Enter your address"  
+              required 
+            />
+          </div>
+          <br />
+          <div className="form-group" align="center">
+            <label htmlFor="email"> EmailID: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="email" 
+              name="email" 
+              onChange={handleChange} 
+              value={userData.email}  
+              placeholder="Enter your emailID"  
+              required 
+            />
+          </div>
+          <br/>
+          <div className="form-group" align="center">
+            <label htmlFor="city"> City: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="city" 
+              name="city" 
+              onChange={handleChange} 
+              value={userData.city}  
+              placeholder="Enter your city"  
+              required 
+            />
+          </div>
+          <br/>
+          <div className="form-group" align="center">
+            <label htmlFor="country"> Country: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="country" 
+              name="country" 
+              onChange={handleChange} 
+              value={userData.country} 
+              placeholder="Enter your country"  
+              required 
+            />
+          </div>
+          <br/>
+
+          <div className="form-group" align="center">
+            <label htmlFor="country"> Password: </label>
+            <input 
+              type="text" 
+              className="form-control" 
+              id="password" 
+              name="password" 
+              onChange={handleChange} 
+              value={userData.password} 
+              placeholder="Enter your password"  
+              required 
+            />
+          </div>
+          <br/>
+          <div className="form-group form-check" align="center">
+            <input 
+              type="checkbox" 
+              className="form-check-input" 
+              id="checkbox" 
+              name="remember" 
+              required 
+            />
+            <label className="form-check-label" htmlFor="checkbox">
+              I agree to the terms and conditions
+            </label>
             <br/>
-
-            <div className="form-group" align="center">
-                <label htmlFor="city"> City: </label>
-                <input type="text" className="form-control" id="pwd" value={userCity} onChange={(e) => setUserCity(e.target.value)} placeholder="Enter your city" name="pwd" required />
-            </div>
-            <br/>
-
-            <div className="form-group" align="center">
-                <label htmlFor="country"> Country: </label>
-                <input type="text" className="form-control" id="pwd" value={userCountry} onChange={(e) => setCountry(e.target.value)} placeholder="Enter your country" name="pwd" required />
-            </div>
-            <br/>
-
-
-            <div className="form-group form-check" align="center">
-                <input type="checkbox" className="form-check-input" id="checkbox" name="remember" required />
-                <label className="form-check-label" htmlFor="checkbox">I agree to the terms and conditions</label>
-                <br/>
-
-                <button type="submit" className="btn btn-primary" onClick={toggleRegister}>Submit</button>
-            </div>
-            <br />
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </div>
+          <br />
+          <div>
             {!showreg && <LoginPage />}
-
-    </form>
-  )}
-  </div>
+            <button type="button" className="btn btn-primary" onClick={toggleRegister}>Login</button>
+          </div>
+        </form>
+      )}
+    </div>
   );
-}
+};
 
 export default Register;

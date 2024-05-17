@@ -6,7 +6,7 @@
             "name": "Run npm start",
             "request": "launch",
             "type": "node-terminal",
-            "cwd": "${workspaceFolder}\\invoice-app-main"
+            "cwd": "${workspaceFolder}\\"
         },
 
         // {
@@ -25,7 +25,7 @@
             // "reAttach" : true,
             // "command": "npm run start",
             "url" : "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/invoice-app-main/client/"
+            "webRoot": "${workspaceFolder}/client/"
             // "pathMappings": [{
             //     "url": "http:\\localhost",
             //     "path": "${workspaceFolder}\\invoice-app-main\\client\\"

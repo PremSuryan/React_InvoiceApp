@@ -1,25 +1,14 @@
 const mongoose = require("mongoose");
 
-const UserRegisterSchema = mongoose.Schema({
-  id: {
-    type: String, required: true,
-  },
-  userName: {
-    type: String,
-  },
-  userEmail: {
-    type: String,
-  },
-  status: {
-    type: String,
-  },
-  userAddress: {
-    street: { type: String },
+const UserRegisterSchema = new mongoose.Schema({
+    username: { type: String},
+    phoneno: { type: String,  },
+    address: { type: String, },
+    email: { type: String },
     city: { type: String },
-    postCode: { type: String },
-    country: { type: String },
-  }
+    country : { type: String },
+    password:  { type: String }
 });
 
-var RegisterModel = mongoose.model("register", UserRegisterSchema);
+var RegisterModel = mongoose.model("RegisterData", UserRegisterSchema);
 module.exports = RegisterModel;

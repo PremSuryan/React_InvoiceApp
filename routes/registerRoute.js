@@ -1,15 +1,38 @@
 const router = require("express").Router();
-let UserRegisterSchema = require("../models/user_register.js");
+let RegisterModel = require("../models/user_register.js");
 const mongoose = require('mongoose');
-const userController = require("./controllers/user");
 
 
 //GET ALL THE INVOICES
-router.route("/register").get((req, res) => {
-    res.render("registor");
-});
+router.route("/userDetails").post((req, res) => {
+    const {
+        username,
+        phoneno,
+        address,
+        email,
+        city,
+        country,
+        password
+      } = req.body;
+
+      const newUser = new RegisterModel({
+        username,
+        phoneno,
+        address,
+        email,
+        city,
+        country,
+        password,
+      });
+    
+      newUser
+        .save()
+        .then(() => res.json("User Added!"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    });
+
   
-router.post("/register",userController.register);
+// router.post("/register",userController.register);
 
 module.exports = router;
 

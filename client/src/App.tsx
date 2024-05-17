@@ -2,7 +2,8 @@ import "./sass/main.scss";
 import { NavBar, Main, InvoiceDetails } from "./components";
 import { BrowserRouter as Router,Route, BrowserRouter } from "react-router-dom";
 import {Register} from "./components";
-import LoginPage from "./components/loginpage";
+import {LoginPage} from "../src/components";
+import {InvoiceProvider} from "./context/invoice_context"
 
 
 function App() {
@@ -10,9 +11,9 @@ function App() {
    <>
     <BrowserRouter>
       <Route>
-        <Route path ="/" children = {<LoginPage/>} />
-        <Route path ="/register" children = {<Register/>} />
-        <Route exact path="/:id" children={<InvoiceDetails />} />
+          <Route exact path ="/" children = {<LoginPage/>}/>
+          <Route path ="/register" children = {<Register/>} />
+          <Route exact path="/:id" children={<InvoiceDetails />} />
       </Route>
     </BrowserRouter>
    </>

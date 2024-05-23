@@ -1,89 +1,111 @@
-import {  useState,  } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Register from './registor'; // Corrected import statement
-import useData from "../context/login_context";
-
-// import { Link } from 'react-router-dom';
-
-// export var showreg = false;
-
-// export var setshowreg = (value) => {
-//   showreg = value;
-// }
+import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {
+  const [userData, setUserData] = useState({});
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showReg, setShowReg] = useState(false);
+  const history = useHistory();
 
-  const [showreg, setshowreg] = useState(false);
-  const userDetails = useData();
+  // useEffect(() => {
+  //   axios.post("http://localhost:5000/getUsers",{username,password})
+  //     .then(response => setUserData(response.data))
+  //     .catch(err => console.log(err));
+  // }, []);
 
-  
-  // console.log("LoginProvider", LoginProvider);
-  // const [userregister, setUserRegister] = useContext(LoginContext);    --------  
+  const logurl = "http://localhost:5000/getusers"
 
-  // const [showRegister, setShowRegister] = useState(false); // State to control whether to show Register component
-  // const {userregister} = useContext(LoginProvider)
-  
+  const userLog = async (event) => {
+    event.preventDefault();
+  // const uservariable = {username, password}
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Validate username and password (e.g., against backend)
-    if (username === 'username' && password === 'password') {
-      // Successful login, redirect or do something
-      console.log('Login successful');
-    } else {
+    try {
+      const response = await axios.post(logurl, {username, password});
+      // setUserData(response.data)
+      console.log("login successful",response.data);
+      setError('');
+      history.push('/main'); 
+
+      // const user = userData.find(user => user.username === username && user.password === password);
+      // if (user) {
+      //   console.log("login successful:", user);
+      //   // Handle success (e.g., redirect to a protected route)
+      // }
+    }
+     catch (error) {
       setError('Invalid username or password');
     }
   };
 
-  const userLogin = () => { 
-    setshowreg(true);// Toggling the state to show/hide Register component
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+  };
+
+  const userLogin = () => {
+    setShowReg(true); // Toggling the state to show/hide Register component
   };
 
   return (
-    
-  <div align="center">
-      {!showreg && (
-      <h2 style={{ textAlign: "center", color: "Blue" }}>Login</h2>
-      )}
-
+    <div align="center">
+      {!showReg && <h2 style={{ textAlign: "center", color: "Blue" }}>Login</h2>}
       {error && <p>{error}</p>}
-      
-      {!showreg && (
-      <form className="was-validated container container-sm-border" method="post" onSubmit={handleLogin} >
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={userDetails.username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={userDetails.password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <br/>
-        <div>
-        <button type="submit" style={{ textAlign: "center", color: "Blue" }} className="btn btn-primary" >Login</button>
-        </div>
-      </form>
+      {!showReg && (
+        <form className="was-validated container container-sm-border" onSubmit={userLog}>
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={userData.username}
+              onChange={handleChange}
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <br/>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <br />
+          <div>
+            <button type="submit" style={{ textAlign: "center", color: "Blue" }} className="btn btn-primary" >
+              Login
+            </button>
+            {/* <Link to='/main'></Link> */}
+          </div>
+
+        </form>
       )}
       <div>
-      {!showreg && (
-        <button className="btn btn-primary" style={{ textAlign: "center", color: "blue" }} onClick={userLogin} >Register</button>
-      )}
+        {!showReg && (
+          <button className="btn btn-primary" style={{ textAlign: "center", color: "blue" }} onClick={userLogin}>
+            Register
+          </button>
+          
+        )}
       </div>
-      {(showreg && <Register/>)}
-  </div>
-    
+      {showReg && <Register />}
+    </div>
   );
 };
 

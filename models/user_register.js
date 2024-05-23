@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
 const UserRegisterSchema = new mongoose.Schema({
-    username: { type: String},
-    phoneno: { type: String,  },
-    address: { type: String, },
-    email: { type: String },
-    city: { type: String },
-    country : { type: String },
-    password:  { type: String }
-});
+    username: String,
+    phoneno: String,
+    address: String,
+    email: String,
+    city: String,
+    country : String,
+    password:  String
+})
 
-var RegisterModel = mongoose.model("RegisterData", UserRegisterSchema);
+var RegisterModel = mongoose.model("users", UserRegisterSchema);
 module.exports = RegisterModel;

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 //GET ALL THE INVOICES
-router.route("/userDetails").post((req, res) => {
+router.route("/userdetails").post((req, res) => {
     const {
         username,
         phoneno,
@@ -31,10 +31,17 @@ router.route("/userDetails").post((req, res) => {
         .catch((err) => res.status(400).json("Error: " + err));
     });
 
-  
-// router.post("/register",userController.register);
+router.route("/getusers").post((req, res) => {
+      const {username, password} = req.body;
+        RegisterModel.find({username,password})
+        .then(users => res.json(users))
+        .catch(err => res.json(err))
+    })    
 
 module.exports = router;
+
+
+// router.post("/register",userController.register);
 
 
 // app.post('/register', (req, res) => {

@@ -140,7 +140,7 @@ const Register = () => {
           <div className="form-group" align="center">
             <label htmlFor="country"> Password: </label>
             <input 
-              type="text" 
+              type="password" 
               className="form-control" 
               id="password" 
               name="password" 
@@ -167,7 +167,7 @@ const Register = () => {
           </div>
           <br />
           <div>
-            {!showreg && <LoginPage />}
+            {!showreg && <LoginPage/>}
             <button type="button" className="btn btn-primary" onClick={toggleRegister}>Login</button>
           </div>
         </form>

@@ -112,6 +112,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       dispatch({ type: "FETCH_INVOICES_ERROR" });
     }
   };
+  
   //ADD NEW INVOICE =============================================================
   const addInvoice = async (invoice: any, isDraft: boolean) => {
     let addUrl = url + "add";
@@ -126,6 +127,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       console.log(error);
     }
   };
+
   //DELETE INVOICE =============================================================
   const deleteInvoice = async (id: string) => {
     let deleteUrl = url + id;
@@ -138,6 +140,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       dispatch({ type: "DELETE_INVOICE_ERROR", payload: id });
     }
   };
+
   //FILTERS, PAID,PENDING,DRAFT ====================================================
   const updateFilter = (e: React.FormEvent<HTMLInputElement>) => {
     let name = e.currentTarget.name;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 // import useData from '../context/login_context';  // Adjust the import path accordingly
 import LoginPage from './loginpage';  // Adjust the import path accordingly
+import { useHistory } from 'react-router-dom';
 
 
 const Register = () => {
@@ -15,7 +16,11 @@ const Register = () => {
     password:''
   };
   const [showreg, setshowreg] = useState(true);
-  const [userData, setUserData] = useState(initialUserData);
+  const [userData, setUserData] = useState(initialUserData); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const history = useHistory();
+
   // const [error, setError] = useState(null);  // State to store error message
 
   // URL for registration
@@ -33,6 +38,8 @@ const Register = () => {
     try {
       const response = await axios.post(regurl, userData);
       console.log("Registration successful:", response.data);
+      history.push('/');
+
       // Handle success (e.g., show a success message, redirect, etc.)
     } catch (error) {
       console.error("Registration failed:", error);

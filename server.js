@@ -52,39 +52,6 @@ const loginRouter = require("./routes/registerRoute");
 app.use("/", loginRouter);
 // -----
 
-// app.post("/getusers",async(req,res)=>{
-//   const {username , password} = req.body
-
-//   const data ={
-//     username : username,
-//     password: password
-//   }
-//   await RegisterModel.insertMany({data})
-// })
-//user login 
-// app.post('/userlogin', async (req, res) => {
-//   const { username, password } = req.body;
-
-//   try {
-//     // Find the user by username
-//     const user = await RegisterModel.findOne({ username });
-//     if (!user) {
-//       return res.status(400).json({ message: 'Invalid username or password' });
-//     }
-
-//     // Compare the provided password with the hashed password in the database
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     if (!isMatch) {
-//       return res.status(400).json({ message: 'Invalid username or password' });
-//     }
-
-//     // If login is successful
-//     res.json({ message: 'Login successful', user });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

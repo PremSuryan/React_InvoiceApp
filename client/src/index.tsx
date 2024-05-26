@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {InvoiceProvider} from "./context/invoice_context"
+import {InvoiceProvider} from "./context/invoice_context";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Register from './registor'; // Corrected import statement
 import { useHistory } from 'react-router-dom';
+// import '../sass/components'; // Import custom CSS
 
 const LoginPage = () => {
-  const [userData, setUserData] = useState({});
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [showReg, setShowReg] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state variable for login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const history = useHistory();
 
   const logurl = "http://localhost:5000/getusers";
@@ -20,7 +21,7 @@ const LoginPage = () => {
       const response = await axios.post(logurl, { username, password });
       console.log("Login successful", response.data);
       setError('');
-      setIsLoggedIn(true); // Set login status to true
+      setIsLoggedIn(true);
       history.push('/main');
     } catch (error) {
       setError('Invalid username or password');
@@ -34,6 +35,10 @@ const LoginPage = () => {
     } else if (name === 'password') {
       setPassword(value);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const userLogin = () => {
@@ -54,7 +59,7 @@ const LoginPage = () => {
                   type="text"
                   id="username"
                   name="username"
-                  value={username} // Corrected to use username state
+                  value={username}
                   onChange={handleChange}
                   placeholder="Enter your name"
                   required
@@ -62,17 +67,20 @@ const LoginPage = () => {
               </div>
 
               <br />
-              <div>
+              <div className="password-container">
                 <label htmlFor="password">Password:</label>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
-                  value={password} // Corrected to use password state
+                  value={password}
                   onChange={handleChange}
                   placeholder="Enter your password"
                   required
                 />
+                <span className="eye-icon" onClick={togglePasswordVisibility}>
+                  <i className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                </span>
               </div>
               <br />
               <div>

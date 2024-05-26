@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useInvoiceContext } from "../context/invoice_context";
+import { useHistory } from 'react-router-dom';
+
 
 const NewFiltersBtns = () => {
   const {
@@ -12,6 +14,7 @@ const NewFiltersBtns = () => {
     getFilteredInvoices,
     toggleNewInvoiceModal,
   } = useInvoiceContext()!;
+  const history = useHistory();
 
 
   useEffect(() => {
@@ -23,6 +26,11 @@ const NewFiltersBtns = () => {
     getFilteredInvoices();
     // eslint-disable-next-line
   }, [filter,invoices])
+
+
+  const clickLogout =()=>{
+    history.push('/');
+  }
   return (
     <div className="filters-btn-container">
       <div className="filter-btn-left">
@@ -85,6 +93,12 @@ const NewFiltersBtns = () => {
           <span>
             New <span className="hidden-mobile-span">Invoice</span>
           </span>
+        </div>
+        <br/>
+        
+        <div>
+        <button style={{ textAlign: "center", color: "Blue" }} className="btn btn-primary" onClick={clickLogout}> Logout </button>
+
         </div>
       </div>
     </div>

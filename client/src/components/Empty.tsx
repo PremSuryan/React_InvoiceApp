@@ -1,6 +1,8 @@
 import React from "react";
 
+
 const Empty = () => {
+
   return (
     <section className="empty-container">
       <img src="/assets/illustration-empty.svg" alt="no invoices"></img>
@@ -13,6 +15,7 @@ const Empty = () => {
           and get started
         </p>
       </div>
+
     </section>
   );
 };

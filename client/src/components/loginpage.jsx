@@ -18,10 +18,15 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const response = await axios.post(logurl, { username, password });
-      console.log("Login successful", response.data);
-      setError('');
-      setIsLoggedIn(true); // Set login status to true
-      history.push('/main');
+  
+      if (response.status === 200) {
+        console.log("Login successful", response.data);
+        setError('');
+        setIsLoggedIn(true); // Set login status to true
+        history.push('/main');
+      } else {
+        setError('Invalid username or password');
+      }
     } catch (error) {
       setError('Invalid username or password');
     }

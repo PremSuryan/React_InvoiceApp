@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { useInvoiceContext } from "../context/invoice_context";
+import LoginPage from "./loginpage";
+import { useHistory } from 'react-router-dom';
+
 
 const NewFiltersBtns = () => {
   const {
@@ -13,6 +16,8 @@ const NewFiltersBtns = () => {
     toggleNewInvoiceModal,
   } = useInvoiceContext()!;
 
+  const history = useHistory();
+
 
   useEffect(() => {
     getTotalInvoices();
@@ -23,6 +28,10 @@ const NewFiltersBtns = () => {
     getFilteredInvoices();
     // eslint-disable-next-line
   }, [filter,invoices])
+
+  const userLogin =()=>{
+    history.push('/');
+  }
   return (
     <div className="filters-btn-container">
       <div className="filter-btn-left">
@@ -86,6 +95,11 @@ const NewFiltersBtns = () => {
             New <span className="hidden-mobile-span">Invoice</span>
           </span>
         </div>
+
+      <br/>
+      <div>
+        <button className="new-btn-container" style={{ textAlign: "center", color: "white" }} onClick={userLogin}> Logout </button>
+      </div>
       </div>
     </div>
   );

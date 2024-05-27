@@ -105,7 +105,7 @@ const Register = () => {
               value={userData.email}  
               placeholder="Enter your emailID"  
               required 
-            />
+             />
           </div>
           <br/>
           <div className="form-group" align="center">
